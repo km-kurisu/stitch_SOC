@@ -99,7 +99,7 @@ jobs:
         working-directory: electron
 
       - name: Package Electron app
-        run: npm run dist -- --win --x64
+        run: npm run dist -- --win --x64 --publish never
         working-directory: electron
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,9 @@
+fastapi==0.115.8
+uvicorn==0.34.0
+psutil==6.1.1
+scapy==2.5.0
+pyshark==0.6
+watchdog==6.0.0
+zxcvbn==4.4.28
+websockets==14.2
+pytest==8.3.4

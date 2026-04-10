@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CyberOps SOC Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00d4ff",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2023",
+                        "accent-success": "#0bda54",
+                        "accent-danger": "#fa5f38",
+                        "panel-dark": "#173036",
+                        "border-dark": "#20444b",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #20444b;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 flex-shrink-0 bg-background-light dark:bg-background-dark border-r border-border-dark flex flex-col h-full">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">shield</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-lg font-bold leading-tight tracking-tight text-slate-900 dark:text-slate-100">CyberOps SOC</h1>
+<p class="text-xs text-slate-500 dark:text-primary/70 uppercase tracking-widest font-semibold">Security Command</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium">Dashboard</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-border-dark/30 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">monitoring</span>
+<p class="text-sm font-medium">Monitoring</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-border-dark/30 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">gpp_maybe</span>
+<p class="text-sm font-medium">IDS</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-border-dark/30 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">hub</span>
+<p class="text-sm font-medium">Network</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-border-dark/30 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">folder_open</span>
+<p class="text-sm font-medium">File</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-border-dark/30 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">key</span>
+<p class="text-sm font-medium">Password</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-border-dark/30 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications_active</span>
+<p class="text-sm font-medium">Alerts</p>
+<span class="ml-auto text-[10px] bg-accent-danger text-white px-1.5 rounded-full">12</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-border-dark/30 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">history</span>
+<p class="text-sm font-medium">Logs</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-border-dark/30 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium">Settings</p>
+</div>
+</nav>
+<div class="p-4 border-t border-border-dark">
+<button class="w-full flex items-center justify-center gap-2 rounded-lg py-2.5 bg-primary text-background-dark font-bold text-sm hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-sm">rocket_launch</span>
+<span>New Scan</span>
+</button>
+<div class="mt-4 flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center border border-border-dark" data-alt="User profile avatar image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCXBt4ThzX-A3MeeDypJIoRu3NVvC3_I_wTMcOmLt3g9XPTPJgZi3IJ_YnewDxiYHEzagD1IJrsqznyGOJQb2roNUx94hqus-PNqi2VBXYzdaTnO38RtbMIG2salAErhQ4HMHco-MFnUNLqw0QYc_GbmCNG3oTgMJKr8W1HNofBSbrmt17Dx8P7bRxOGLjHU1RY624S3CPSfJW9zOxGzBDjtRdbGv1yFb1uKd10aCDNyopzkyYI2BTYCUdzvJAQEhMcnAf8XKD6jww');"></div>
+<div class="flex-1 overflow-hidden">
+<p class="text-sm font-medium truncate">Admin Control</p>
+<p class="text-[10px] text-slate-500 uppercase">Super User</p>
+</div>
+<span class="material-symbols-outlined text-slate-500 cursor-pointer">logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Top Bar -->
+<header class="h-16 border-b border-border-dark flex items-center justify-between px-8 bg-background-light dark:bg-background-dark/50 backdrop-blur-md">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-accent-success">
+<span class="material-symbols-outlined">check_circle</span>
+<h2 class="font-bold text-lg">System Health: Optimal</h2>
+</div>
+<div class="h-4 w-px bg-border-dark"></div>
+<div class="flex items-center gap-4 text-xs font-mono text-slate-400">
+<span>UPTIME: 24d 14h 03m</span>
+<span>NODES: 154 Active</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="bg-border-dark/50 border-none rounded-lg pl-9 pr-4 py-1.5 text-sm w-64 focus:ring-1 focus:ring-primary" placeholder="Search incidents..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg bg-border-dark/30 text-slate-400 hover:text-primary"><span class="material-symbols-outlined text-xl">wifi</span></button>
+<button class="p-2 rounded-lg bg-border-dark/30 text-slate-400 hover:text-primary"><span class="material-symbols-outlined text-xl">battery_charging_90</span></button>
+<button class="p-2 rounded-lg bg-border-dark/30 text-slate-400 hover:text-primary"><span class="material-symbols-outlined text-xl">memory</span></button>
+</div>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+<div class="grid grid-cols-1 xl:grid-cols-4 gap-6">
+<!-- Real-time Stats -->
+<div class="xl:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-panel-dark p-5 rounded-xl border border-border-dark flex flex-col justify-between hover:border-primary/50 transition-colors group">
+<div class="flex justify-between items-start">
+<p class="text-slate-400 text-sm font-medium">CPU Usage</p>
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<div class="mt-4 flex items-end justify-between">
+<h3 class="text-3xl font-bold">24%</h3>
+<span class="text-accent-danger text-sm font-medium flex items-center"><span class="material-symbols-outlined text-xs">trending_down</span>-5%</span>
+</div>
+<div class="mt-4 h-1 w-full bg-border-dark rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[24%]"></div>
+</div>
+</div>
+<div class="bg-panel-dark p-5 rounded-xl border border-border-dark flex flex-col justify-between hover:border-primary/50 transition-colors">
+<div class="flex justify-between items-start">
+<p class="text-slate-400 text-sm font-medium">RAM Usage</p>
+<span class="material-symbols-outlined text-primary">memory</span>
+</div>
+<div class="mt-4 flex items-end justify-between">
+<h3 class="text-3xl font-bold">62%</h3>
+<span class="text-accent-success text-sm font-medium flex items-center"><span class="material-symbols-outlined text-xs">trending_up</span>+2%</span>
+</div>
+<div class="mt-4 h-1 w-full bg-border-dark rounded-full overflow-hidden">
+<div class="h-full bg-accent-success w-[62%]"></div>
+</div>
+</div>
+<div class="bg-panel-dark p-5 rounded-xl border border-border-dark flex flex-col justify-between hover:border-primary/50 transition-colors">
+<div class="flex justify-between items-start">
+<p class="text-slate-400 text-sm font-medium">Disk I/O</p>
+<span class="material-symbols-outlined text-primary">storage</span>
+</div>
+<div class="mt-4 flex items-end justify-between">
+<h3 class="text-3xl font-bold truncate">120 MB/s</h3>
+<span class="text-accent-success text-sm font-medium flex items-center"><span class="material-symbols-outlined text-xs">trending_up</span>+1%</span>
+</div>
+<div class="mt-4 h-1 w-full bg-border-dark rounded-full overflow-hidden">
+<div class="h-full bg-primary/60 w-[40%]"></div>
+</div>
+</div>
+<div class="bg-panel-dark p-5 rounded-xl border border-border-dark flex flex-col justify-between hover:border-primary/50 transition-colors">
+<div class="flex justify-between items-start">
+<p class="text-slate-400 text-sm font-medium">Network Traffic</p>
+<span class="material-symbols-outlined text-primary">public</span>
+</div>
+<div class="mt-4 flex items-end justify-between">
+<h3 class="text-3xl font-bold truncate">450 Mbps</h3>
+<span class="text-accent-danger text-sm font-medium flex items-center"><span class="material-symbols-outlined text-xs">trending_down</span>-10%</span>
+</div>
+<div class="mt-4 h-1 w-full bg-border-dark rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[75%]"></div>
+</div>
+</div>
+</div>
+<!-- Recent Alerts Panel (Right) -->
+<div class="xl:row-span-2 bg-panel-dark rounded-xl border border-border-dark flex flex-col overflow-hidden">
+<div class="p-4 border-b border-border-dark flex justify-between items-center">
+<h3 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-danger text-lg">warning</span>
+                                Recent Alerts
+                            </h3>
+<span class="text-xs text-primary cursor-pointer hover:underline">Clear all</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-2 space-y-2">
+<div class="p-3 bg-border-dark/30 rounded-lg border-l-4 border-accent-danger hover:bg-border-dark/50 transition-all">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-accent-danger uppercase">Critical</span>
+<span class="text-[10px] text-slate-500">2m ago</span>
+</div>
+<p class="text-xs font-bold truncate">Brute-force attack detected</p>
+<p class="text-[10px] text-slate-400 truncate">IP: 192.168.1.105 via SSH</p>
+</div>
+<div class="p-3 bg-border-dark/30 rounded-lg border-l-4 border-accent-danger hover:bg-border-dark/50 transition-all">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-accent-danger uppercase">Critical</span>
+<span class="text-[10px] text-slate-500">12m ago</span>
+</div>
+<p class="text-xs font-bold truncate">DDoS mitigation triggered</p>
+<p class="text-[10px] text-slate-400 truncate">Primary gateway under load</p>
+</div>
+<div class="p-3 bg-border-dark/30 rounded-lg border-l-4 border-primary hover:bg-border-dark/50 transition-all">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-primary uppercase">Warning</span>
+<span class="text-[10px] text-slate-500">45m ago</span>
+</div>
+<p class="text-xs font-bold truncate">Unexpected outbound traffic</p>
+<p class="text-[10px] text-slate-400 truncate">Host: WORKSTATION-04</p>
+</div>
+<div class="p-3 bg-border-dark/30 rounded-lg border-l-4 border-primary hover:bg-border-dark/50 transition-all">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-primary uppercase">Warning</span>
+<span class="text-[10px] text-slate-500">1h ago</span>
+</div>
+<p class="text-xs font-bold truncate">Failed root login</p>
+<p class="text-[10px] text-slate-400 truncate">Terminal: TTY1</p>
+</div>
+<div class="p-3 bg-border-dark/30 rounded-lg border-l-4 border-slate-500 hover:bg-border-dark/50 transition-all">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-slate-500 uppercase">Info</span>
+<span class="text-[10px] text-slate-500">3h ago</span>
+</div>
+<p class="text-xs font-bold truncate">Routine scan complete</p>
+<p class="text-[10px] text-slate-400 truncate">No new vulnerabilities</p>
+</div>
+</div>
+<div class="p-3 bg-background-dark/50 border-t border-border-dark text-center">
+<button class="text-xs font-bold text-primary hover:brightness-110">View Analysis Report</button>
+</div>
+</div>
+<!-- Large Threat Detection Summary -->
+<div class="xl:col-span-3 bg-panel-dark rounded-xl border border-border-dark overflow-hidden flex flex-col @container">
+<div class="flex flex-col @xl:flex-row h-full">
+<div class="w-full @xl:w-1/3 bg-cover bg-center h-48 @xl:h-auto relative" data-alt="Cybersecurity digital world map interface visualization" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA58w2H0pNyGgQN2FhcwHmHIheeHJ626UNz6b3v0osS_Lzj-TTIqPxVXwtfST-Si_ECxL-TJu2IXp1V9ypWKHiPXe0Ad6fJsaVqExo9ykOQ3XFjH23SzqbFt320NBNKqqAH_3hNvC5iO7LjttdynNaGPn3hQh7DoGg2qX_wl45koacbydRvO0wonIsubz3GwbMtI0S_AJ_hjYvSayJHqtf0e-wikK_y2NWKe6iL3bjIZz-4VNF4mPr3cTJpQtNWdO8Do_uh-LFnn5k');">
+<div class="absolute inset-0 bg-gradient-to-r from-panel-dark via-transparent to-transparent hidden @xl:block"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-panel-dark via-transparent to-transparent @xl:hidden"></div>
+<div class="absolute bottom-4 left-4">
+<span class="px-2 py-1 bg-accent-danger text-white text-[10px] font-bold rounded uppercase">Live Feed</span>
+</div>
+</div>
+<div class="flex-1 p-6 flex flex-col justify-between">
+<div>
+<p class="text-primary text-sm font-semibold mb-1 uppercase tracking-wider">Live Monitoring</p>
+<h2 class="text-2xl font-bold mb-3">Threat Detection Summary</h2>
+<p class="text-slate-400 text-sm mb-6 leading-relaxed max-w-2xl">
+                                        High-level overview of active security threats and vulnerabilities detected in the last 24 hours. The heuristic engine is currently analyzing traffic patterns across 3 key vectors.
+                                    </p>
+<div class="grid grid-cols-3 gap-4 border-t border-border-dark pt-6">
+<div class="text-center">
+<p class="text-2xl font-bold">12</p>
+<p class="text-[10px] text-slate-500 uppercase">Total Threats</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-accent-danger">2</p>
+<p class="text-[10px] text-slate-500 uppercase">Critical</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-accent-success">10</p>
+<p class="text-[10px] text-slate-500 uppercase">Resolved</p>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-end">
+<button class="px-6 py-2 bg-primary/20 text-primary border border-primary/30 rounded-lg text-sm font-bold hover:bg-primary/30 transition-all flex items-center gap-2">
+                                        View Live Details
+                                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Chart -->
+<div class="xl:col-span-4 bg-panel-dark rounded-xl border border-border-dark p-6">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="text-lg font-bold">Network Activity</h3>
+<p class="text-xs text-slate-500">Throughput visualization across all edge nodes</p>
+</div>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full bg-border-dark text-[10px] font-bold text-primary">1H</span>
+<span class="px-3 py-1 rounded-full text-[10px] font-bold text-slate-500 cursor-pointer hover:text-slate-300">6H</span>
+<span class="px-3 py-1 rounded-full text-[10px] font-bold text-slate-500 cursor-pointer hover:text-slate-300">24H</span>
+</div>
+</div>
+<div class="relative h-64 w-full flex items-end gap-1">
+<!-- Visual placeholder for a line chart using CSS heights -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-10">
+<div class="border-t border-slate-500 w-full"></div>
+<div class="border-t border-slate-500 w-full"></div>
+<div class="border-t border-slate-500 w-full"></div>
+<div class="border-t border-slate-500 w-full"></div>
+</div>
+<!-- Simplified bar visualization for activity -->
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[40%] rounded-t-sm" title="12:00"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[45%] rounded-t-sm" title="12:05"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[30%] rounded-t-sm" title="12:10"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[50%] rounded-t-sm" title="12:15"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[75%] rounded-t-sm" title="12:20"></div>
+<div class="flex-1 bg-accent-danger/40 hover:bg-accent-danger transition-colors h-[95%] rounded-t-sm" title="12:25 (SPIKE)"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[60%] rounded-t-sm" title="12:30"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[40%] rounded-t-sm" title="12:35"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[35%] rounded-t-sm" title="12:40"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[55%] rounded-t-sm" title="12:45"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[45%] rounded-t-sm" title="12:50"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[50%] rounded-t-sm" title="12:55"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[70%] rounded-t-sm" title="13:00"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[85%] rounded-t-sm" title="13:05"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[65%] rounded-t-sm" title="13:10"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[40%] rounded-t-sm" title="13:15"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[30%] rounded-t-sm" title="13:20"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[25%] rounded-t-sm" title="13:25"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[45%] rounded-t-sm" title="13:30"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[55%] rounded-t-sm" title="13:35"></div>
+</div>
+<div class="flex justify-between mt-2 text-[10px] text-slate-500 font-mono">
+<span>12:00</span>
+<span>12:30</span>
+<span>13:00</span>
+<span>13:30</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

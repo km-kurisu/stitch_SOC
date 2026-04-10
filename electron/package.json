@@ -1,0 +1,17 @@
+{
+    "name": "stitch-soc",
+    "version": "1.0.0",
+    "description": "Cross-platform desktop cybersecurity monitoring application",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder"
+    },
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "electron": "^34.0.0",
+        "electron-builder": "^25.1.8"
+    }
+}

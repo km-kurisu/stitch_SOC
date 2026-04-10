@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00d4ff",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2023",
+                        "surface-dark": "#173036",
+                        "border-dark": "#2e616b",
+                        "accent-green": "#00ff9d"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>CyberGuard | Password Analyzer</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Side Navigation Bar -->
+<aside class="w-64 flex flex-col bg-background-light dark:bg-background-dark border-r border-slate-200 dark:border-border-dark p-6">
+<div class="flex items-center gap-3 mb-10">
+<div class="bg-primary/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary">shield</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-base font-bold leading-none">CyberGuard</h1>
+<p class="text-slate-500 dark:text-primary/60 text-xs font-medium">SOC Terminal v2.0</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 grow">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined">security</span>
+<span class="text-sm font-medium">Threat Detection</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/20 text-primary" href="#">
+<span class="material-symbols-outlined">lock_reset</span>
+<span class="text-sm font-medium">Password Analyzer</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined">lan</span>
+<span class="text-sm font-medium">Network Scan</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-slate-200 dark:border-border-dark">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-slate-50 dark:bg-background-dark/50 p-8">
+<header class="mb-8">
+<h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Password Analyzer</h2>
+<p class="text-slate-500 dark:text-primary/60 mt-1">Real-time cryptographic strength &amp; entropy analysis</p>
+</header>
+<div class="grid grid-cols-12 gap-8">
+<!-- Analysis Column -->
+<div class="col-span-12 lg:col-span-7 space-y-8">
+<!-- Input Section -->
+<div class="bg-white dark:bg-surface-dark p-8 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<label class="block mb-6">
+<span class="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Target Phrase</span>
+<div class="mt-3 relative">
+<input class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg py-4 px-5 text-xl font-mono text-primary focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="Enter password to analyze..." type="password" value="K4$p3rsky_2024!"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</label>
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<span class="text-slate-900 dark:text-accent-green font-bold text-lg flex items-center gap-2">
+                                    Strength: Strong
+                                    <span class="material-symbols-outlined text-accent-green text-sm">verified</span>
+</span>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-mono">84% Secure</span>
+</div>
+<div class="h-3 w-full bg-slate-200 dark:bg-border-dark rounded-full overflow-hidden shadow-[0_0_15px_rgba(0,212,255,0.1)]">
+<div class="h-full bg-gradient-to-r from-primary to-accent-green w-[84%] relative">
+<div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+</div>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 italic">Complexity requirements met: Length, Symbols, Numerals, and Case variance detected.</p>
+</div>
+</div>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-2 gap-6">
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm group hover:border-primary/50 transition-colors">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">query_stats</span>
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-tighter">Entropy Score</span>
+</div>
+<div class="text-4xl font-bold text-slate-900 dark:text-white mb-1">92.4 <span class="text-sm font-normal text-slate-500">bits</span></div>
+<div class="text-xs text-accent-green flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-xs">arrow_upward</span>
+                                High Entropy
+                            </div>
+</div>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm group hover:border-primary/50 transition-colors">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">timer</span>
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-tighter">Time to Crack</span>
+</div>
+<div class="text-4xl font-bold text-slate-900 dark:text-white mb-1">400+ <span class="text-sm font-normal text-slate-500">years</span></div>
+<div class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1 font-medium">
+                                Brute force estimation (RTX 4090)
+                            </div>
+</div>
+</div>
+<!-- Pattern Analysis -->
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<h3 class="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                            Pattern Analysis
+                        </h3>
+<div class="space-y-3">
+<div class="flex justify-between p-3 rounded bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-border-dark/50">
+<span class="text-sm text-slate-600 dark:text-slate-400">Dictionary Words</span>
+<span class="text-sm font-mono text-red-400">0 Found</span>
+</div>
+<div class="flex justify-between p-3 rounded bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-border-dark/50">
+<span class="text-sm text-slate-600 dark:text-slate-400">Sequential Strings</span>
+<span class="text-sm font-mono text-accent-green">None</span>
+</div>
+<div class="flex justify-between p-3 rounded bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-border-dark/50">
+<span class="text-sm text-slate-600 dark:text-slate-400">Date Sequences</span>
+<span class="text-sm font-mono text-yellow-400">"2024" detected</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recommendations Column -->
+<div class="col-span-12 lg:col-span-5 space-y-6">
+<div class="bg-white dark:bg-surface-dark p-8 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm h-full">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+                            Security Recommendations
+                        </h3>
+<ul class="space-y-6">
+<li class="flex gap-4">
+<div class="mt-1 flex-shrink-0 bg-accent-green/20 p-1 rounded-full text-accent-green h-6 w-6 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<div>
+<p class="font-medium text-slate-900 dark:text-slate-100 text-sm">Length Optimization</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Your password exceeds 12 characters, significantly increasing protection against brute force attacks.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<div class="mt-1 flex-shrink-0 bg-accent-green/20 p-1 rounded-full text-accent-green h-6 w-6 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<div>
+<p class="font-medium text-slate-900 dark:text-slate-100 text-sm">Special Characters</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Good use of non-alphanumeric characters detected. Entropy is boosted by these varied symbols.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<div class="mt-1 flex-shrink-0 bg-yellow-400/20 p-1 rounded-full text-yellow-400 h-6 w-6 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">priority_high</span>
+</div>
+<div>
+<p class="font-medium text-slate-900 dark:text-slate-100 text-sm">Pattern Avoidance</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Consider removing the "2024" suffix. Common year sequences are frequently found in dictionary attack lists.</p>
+</div>
+</li>
+<li class="flex gap-4 opacity-50">
+<div class="mt-1 flex-shrink-0 bg-slate-400/20 p-1 rounded-full text-slate-400 h-6 w-6 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">circle</span>
+</div>
+<div>
+<p class="font-medium text-slate-900 dark:text-slate-100 text-sm">2FA Integration</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">No password is 100% safe. Always combine strong credentials with multi-factor authentication.</p>
+</div>
+</li>
+</ul>
+<div class="mt-10 pt-6 border-t border-slate-100 dark:border-border-dark">
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-lg">sync</span>
+                                Generate Secure Password
+                            </button>
+<p class="text-center text-[10px] text-slate-400 mt-4 uppercase tracking-[0.2em]">Secured by CyberGuard Cryptography Engine</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

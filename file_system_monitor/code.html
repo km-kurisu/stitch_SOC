@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00d4ff",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2023",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2e616b;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<aside class="w-64 flex-shrink-0 border-r border-slate-200 dark:border-primary/20 bg-background-light dark:bg-background-dark flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-background-dark font-bold">shield_with_heart</span>
+</div>
+<div>
+<h1 class="text-lg font-bold leading-tight tracking-tight">CyberGuard</h1>
+<p class="text-xs text-slate-500 dark:text-primary/60 font-medium">Enterprise Security</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto custom-scrollbar">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl">monitoring</span>
+<span class="text-sm font-medium">System Monitoring</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl">security</span>
+<span class="text-sm font-medium">Intrusion Detection</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl">rebase_edit</span>
+<span class="text-sm font-medium">Network Traffic</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/20 text-primary rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl">folder_managed</span>
+<span class="text-sm font-medium">File System Monitor</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl">key</span>
+<span class="text-sm font-medium">Password Analyzer</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl">notification_important</span>
+<span class="text-sm font-medium">Threat Alerts</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl">description</span>
+<span class="text-sm font-medium">Logs</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-primary/20">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</aside>
+<main class="flex-1 flex flex-col overflow-hidden">
+<header class="h-16 border-b border-slate-200 dark:border-primary/20 px-8 flex items-center justify-between bg-background-light dark:bg-background-dark/50 backdrop-blur-md z-10">
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 text-lg">search</span>
+<input class="bg-slate-100 dark:bg-slate-800/50 border-none rounded-lg pl-10 pr-4 py-2 text-sm w-80 focus:ring-1 focus:ring-primary" placeholder="Search logs, paths, or users..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3 px-4 py-1.5 bg-green-500/10 border border-green-500/20 rounded-full">
+<div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+<span class="text-xs font-bold text-green-500 uppercase tracking-wider">System Health: Optimal</span>
+</div>
+<div class="flex items-center gap-4 border-l border-slate-200 dark:border-primary/20 pl-6">
+<button class="relative text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full border-2 border-background-dark"></span>
+</button>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-bold">Admin User</p>
+<p class="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">SecOps Tier 3</p>
+</div>
+<img class="w-10 h-10 rounded-full border border-primary/40 object-cover" data-alt="User profile avatar with professional styling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcKDBd9EKlv-yVEeoS9bq16fbL5qdv_rtYA-yGH2JK-PhFZPAB5zjCWkQgAsKJmK5hfBSJIcKR1m8bfUd8uDPwTCczDHTHzXdlBvq-WIiRxYbuzrj-C8Z-H5X2Qkkb-tK6_c1s7LDqVcaPPn_30xsY8Cp8S6E_aWIvIp8Wn4T1mHk_mE61AMgzaRMMLba7dtgFIwhpdF_PEHd1FcKoDqyaRGzhYtv2ig6xpGeAFNWk_pSP639f4SQNRf_ZeGBkGDCmqilhf0cYYE0"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar">
+<section>
+<div class="mb-6">
+<h2 class="text-3xl font-bold tracking-tight">File System Monitor</h2>
+<p class="text-slate-500 dark:text-primary/60">Real-time monitoring of file modifications and integrity across all volumes.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-background-light dark:bg-slate-800/20 border border-slate-200 dark:border-primary/20 p-5 rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">File Integrity Status</p>
+<span class="material-symbols-outlined text-green-500">verified_user</span>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold text-green-500">SECURE</h3>
+<span class="text-xs font-medium text-green-500/80">+0% Drift</span>
+</div>
+</div>
+<div class="bg-background-light dark:bg-slate-800/20 border border-slate-200 dark:border-primary/20 p-5 rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Files Scanned</p>
+<span class="material-symbols-outlined text-primary">data_usage</span>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold">1,248,392</h3>
+<span class="text-xs font-medium text-green-500">+12% vs yesterday</span>
+</div>
+</div>
+<div class="bg-background-light dark:bg-slate-800/20 border border-slate-200 dark:border-primary/20 p-5 rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Pending Alerts</p>
+<span class="material-symbols-outlined text-red-500">warning</span>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold">2 Critical</h3>
+<span class="text-xs font-medium text-red-500">-5% response time</span>
+</div>
+</div>
+<div class="bg-background-light dark:bg-slate-800/20 border border-slate-200 dark:border-primary/20 p-5 rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Last Scan Time</p>
+<span class="material-symbols-outlined text-slate-400">history</span>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold">2 mins ago</h3>
+<span class="text-xs font-medium text-slate-500">Next: 3m 00s</span>
+</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<section class="lg:col-span-2 space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">list_alt</span>
+                                Live File Activity Log
+                            </h3>
+<button class="text-xs font-bold text-primary hover:underline uppercase tracking-widest">Download Report</button>
+</div>
+<div class="bg-background-light dark:bg-slate-800/10 border border-slate-200 dark:border-primary/10 rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-100 dark:bg-slate-800/40 text-[10px] uppercase tracking-widest text-slate-500 font-bold border-b border-slate-200 dark:border-primary/10">
+<th class="px-6 py-4">Timestamp</th>
+<th class="px-6 py-4">File Path</th>
+<th class="px-6 py-4">Action</th>
+<th class="px-6 py-4">User</th>
+<th class="px-6 py-4">Status</th>
+</tr>
+</thead>
+<tbody class="text-sm divide-y divide-slate-200 dark:divide-primary/5">
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 text-slate-400 font-mono">14:32:01.04</td>
+<td class="px-6 py-4 font-medium truncate max-w-[200px]">/etc/nginx/nginx.conf</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded bg-blue-500/10 text-blue-500 text-[10px] font-bold uppercase">Modified</span>
+</td>
+<td class="px-6 py-4">root</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-green-500">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="text-xs font-medium">Normal</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 text-slate-400 font-mono">14:31:55.22</td>
+<td class="px-6 py-4 font-medium truncate max-w-[200px]">/var/www/html/index.php</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 text-[10px] font-bold uppercase">Created</span>
+</td>
+<td class="px-6 py-4">www-data</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-red-500">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span class="text-xs font-bold uppercase">Suspicious</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 text-slate-400 font-mono">14:31:12.89</td>
+<td class="px-6 py-4 font-medium truncate max-w-[200px]">/home/admin/.ssh/known_hosts</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded bg-purple-500/10 text-purple-500 text-[10px] font-bold uppercase">Deleted</span>
+</td>
+<td class="px-6 py-4">admin</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-green-500">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="text-xs font-medium">Normal</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 text-slate-400 font-mono">14:30:45.01</td>
+<td class="px-6 py-4 font-medium truncate max-w-[200px]">/usr/local/bin/crypto_tool</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase">Renamed</span>
+</td>
+<td class="px-6 py-4">sysadmin_04</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-red-500">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span class="text-xs font-bold uppercase">Suspicious</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 text-slate-400 font-mono">14:29:10.45</td>
+<td class="px-6 py-4 font-medium truncate max-w-[200px]">/lib/systemd/system/threat.service</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded bg-blue-500/10 text-blue-500 text-[10px] font-bold uppercase">Modified</span>
+</td>
+<td class="px-6 py-4">daemon</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-green-500">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="text-xs font-medium">Normal</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500">error</span>
+                                Alerts
+                            </h3>
+<span class="text-[10px] font-bold px-2 py-0.5 bg-red-500/20 text-red-500 rounded-full">LIVE</span>
+</div>
+<div class="space-y-3">
+<div class="bg-red-500/5 border border-red-500/20 rounded-xl p-4 flex gap-4 hover:bg-red-500/10 transition-colors cursor-pointer">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center text-red-500">
+<span class="material-symbols-outlined">gpp_maybe</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<p class="text-xs font-bold uppercase tracking-wider text-red-500 mb-1">Critical Integrity Violation</p>
+<span class="text-[10px] text-slate-500">Just now</span>
+</div>
+<p class="text-sm font-bold truncate">Unauthorized change in /boot/vmlinuz-5.4.0</p>
+<p class="text-xs text-slate-500 mt-1">Hash mismatch detected. Previous state lost.</p>
+</div>
+</div>
+<div class="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4 flex gap-4 hover:bg-amber-500/10 transition-colors cursor-pointer">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-500">
+<span class="material-symbols-outlined">policy</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<p class="text-xs font-bold uppercase tracking-wider text-amber-500 mb-1">High Severity Alert</p>
+<span class="text-[10px] text-slate-500">12m ago</span>
+</div>
+<p class="text-sm font-bold truncate">Multiple file deletions in /var/log/audit</p>
+<p class="text-xs text-slate-500 mt-1">Attempted log cleansing by 'www-data' user.</p>
+</div>
+</div>
+<div class="bg-slate-800/10 border border-slate-200 dark:border-primary/10 rounded-xl p-4 flex gap-4 opacity-70">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">folder_open</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Medium Severity</p>
+<span class="text-[10px] text-slate-500">45m ago</span>
+</div>
+<p class="text-sm font-bold truncate text-slate-300">New directory created in /tmp/.hidden</p>
+<p class="text-xs text-slate-500 mt-1">Unusual hidden folder detected during scan.</p>
+</div>
+</div>
+</div>
+<button class="w-full py-3 bg-slate-800/40 hover:bg-slate-800/60 text-slate-400 text-xs font-bold rounded-xl border border-slate-200 dark:border-primary/10 transition-all">
+                            VIEW ALL ALERTS (24)
+                        </button>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CyberSOC - Network Traffic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00d4ff",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2023",
+                        "accent-green": "#00ff9d",
+                        "surface": "#1a2e32",
+                        "border-color": "#264146"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Space Grotesk", sans-serif;
+        }
+        .chart-gradient {
+            background: linear-gradient(180deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 212, 255, 0) 100%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-border-color bg-background-light dark:bg-background-dark flex flex-col fixed h-full">
+<div class="p-6 flex items-center gap-3">
+<div class="size-8 bg-primary rounded flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">shield</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight">CyberSOC</h1>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">monitoring</span>
+<span class="text-sm font-medium">System Monitoring</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">security</span>
+<span class="text-sm font-medium">Intrusion Detection</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg" href="#">
+<span class="material-symbols-outlined text-xl">router</span>
+<span class="text-sm font-medium">Network Traffic</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">folder_managed</span>
+<span class="text-sm font-medium">File System Monitor</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">password</span>
+<span class="text-sm font-medium">Password Analyzer</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">warning</span>
+<span class="text-sm font-medium">Threat Alerts</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">description</span>
+<span class="text-sm font-medium">Logs</span>
+</a>
+</nav>
+<div class="p-4 border-t border-border-color">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 flex flex-col">
+<!-- Header / Status Bar -->
+<header class="h-16 border-b border-border-color flex items-center justify-between px-8 bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-10">
+<div class="flex items-center w-96">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-lg">search</span>
+<input class="w-full bg-surface/50 border-border-color rounded-lg pl-10 pr-4 py-1.5 text-sm focus:ring-primary focus:border-primary" placeholder="Search IP, Port or Protocol..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1 bg-accent-green/10 rounded-full">
+<div class="size-2 bg-accent-green rounded-full animate-pulse"></div>
+<span class="text-xs font-bold text-accent-green uppercase tracking-wider">System Secure</span>
+</div>
+<button class="relative p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full border-2 border-background-dark"></span>
+</button>
+<div class="h-8 w-[1px] bg-border-color mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold">Admin User</p>
+<p class="text-[10px] text-slate-500">Tier 3 Analyst</p>
+</div>
+<div class="size-8 rounded-full bg-surface border border-border-color flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD48hqPSK-QDX40ahkfwq4V89RwdOBquyQMPP5-bzs3_AMpMwOhg-k8Pk10vQihc8rb9CixHXzefREDYaxsfHVmXV-UrIAp011TYaP8ozkFBhTU4QuwUrQj7fBPb0TLNGE38s1E6Od5lHchSNPISvzqi6BgJcWv_QKm7z3QaMNM1jsmLSMC83Fydj1dHs5G_optCjdelgQXkiOvQEYggRcaZhI2kT0kx6-q8i0nJrjQRB20YOpMI53g3bjR3udE4FAF9TSsyoyQjyg"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Workspace Container -->
+<div class="p-8 space-y-6 max-w-[1600px] mx-auto w-full">
+<!-- Page Title -->
+<div class="flex items-end justify-between">
+<div>
+<h2 class="text-3xl font-bold tracking-tight">Network Traffic</h2>
+<p class="text-slate-400 mt-1">Real-time packet inspection and interface telemetry</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface border border-border-color rounded-lg text-sm font-medium hover:bg-border-color transition-colors">
+<span class="material-symbols-outlined text-lg">file_download</span> Export
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-background-dark rounded-lg text-sm font-bold hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-lg">play_arrow</span> Live Analysis
+                    </button>
+</div>
+</div>
+<!-- Top Row: Packet Activity Chart -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 bg-surface/30 border border-border-color rounded-xl p-6">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-lg font-bold">Packet Activity</h3>
+<p class="text-xs text-slate-500">Bandwidth throughput over last 60 minutes</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-primary"></div>
+<span class="text-xs text-slate-400">Incoming</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-accent-green"></div>
+<span class="text-xs text-slate-400">Outgoing</span>
+</div>
+</div>
+</div>
+<div class="h-64 relative">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 200">
+<!-- Outgoing Line -->
+<path class="opacity-80" d="M0 150 Q 100 140, 200 160 T 400 120 T 600 140 T 800 100 T 1000 130" fill="none" stroke="#00ff9d" stroke-width="2"></path>
+<!-- Incoming Line -->
+<path d="M0 120 Q 150 100, 300 130 T 500 80 T 700 110 T 900 60 T 1000 90" fill="none" stroke="#00d4ff" stroke-width="3"></path>
+<!-- Subtle Grid -->
+<line stroke="#264146" stroke-dasharray="4" x1="0" x2="1000" y1="50" y2="50"></line>
+<line stroke="#264146" stroke-dasharray="4" x1="0" x2="1000" y1="100" y2="100"></line>
+<line stroke="#264146" stroke-dasharray="4" x1="0" x2="1000" y1="150" y2="150"></line>
+</svg>
+<div class="absolute bottom-0 left-0 w-full flex justify-between text-[10px] text-slate-500 font-medium px-1">
+<span>14:00</span><span>14:10</span><span>14:20</span><span>14:30</span><span>14:40</span><span>14:50</span><span>15:00</span>
+</div>
+</div>
+</div>
+<!-- Source & Destination -->
+<div class="bg-surface/30 border border-border-color rounded-xl p-6">
+<h3 class="text-lg font-bold mb-4">Top Destinations</h3>
+<div class="space-y-4">
+<div class="group cursor-pointer">
+<div class="flex justify-between text-sm mb-1.5">
+<span class="font-mono text-primary">192.168.1.104</span>
+<span class="text-slate-400">4.2 GB</span>
+</div>
+<div class="h-1.5 w-full bg-surface rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="flex justify-between text-sm mb-1.5">
+<span class="font-mono text-slate-300">10.0.0.45</span>
+<span class="text-slate-400">3.8 GB</span>
+</div>
+<div class="h-1.5 w-full bg-surface rounded-full overflow-hidden">
+<div class="h-full bg-primary/60 rounded-full" style="width: 72%"></div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="flex justify-between text-sm mb-1.5">
+<span class="font-mono text-slate-300">172.16.254.1</span>
+<span class="text-slate-400">1.5 GB</span>
+</div>
+<div class="h-1.5 w-full bg-surface rounded-full overflow-hidden">
+<div class="h-full bg-primary/40 rounded-full" style="width: 35%"></div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="flex justify-between text-sm mb-1.5">
+<span class="font-mono text-slate-300">208.67.222.222</span>
+<span class="text-slate-400">840 MB</span>
+</div>
+<div class="h-1.5 w-full bg-surface rounded-full overflow-hidden">
+<div class="h-full bg-primary/20 rounded-full" style="width: 15%"></div>
+</div>
+</div>
+<div class="group cursor-pointer pt-4">
+<div class="h-[1px] bg-border-color w-full mb-4"></div>
+<a class="text-xs text-primary font-bold flex items-center justify-center gap-1 hover:underline" href="#">
+                                 VIEW ALL ENDPOINTS <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Connections Table -->
+<div class="bg-surface/30 border border-border-color rounded-xl overflow-hidden">
+<div class="px-6 py-4 border-b border-border-color flex justify-between items-center">
+<h3 class="text-lg font-bold">Active Connections</h3>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-surface text-[10px] font-bold border border-border-color rounded uppercase tracking-tighter">Live Feed</span>
+<span class="px-2 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded uppercase">42 Active</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-background-dark/30 text-slate-400 text-xs font-bold uppercase tracking-wider">
+<th class="px-6 py-3">Local Port</th>
+<th class="px-6 py-3">Remote IP</th>
+<th class="px-6 py-3">Protocol</th>
+<th class="px-6 py-3">Sent</th>
+<th class="px-6 py-3">Received</th>
+<th class="px-6 py-3">Status</th>
+<th class="px-6 py-3"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-color">
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 text-sm font-mono text-primary">443 (HTTPS)</td>
+<td class="px-6 py-4 text-sm font-mono">52.12.34.198</td>
+<td class="px-6 py-4 text-xs"><span class="px-2 py-0.5 bg-border-color rounded">TCP</span></td>
+<td class="px-6 py-4 text-sm">24.5 MB</td>
+<td class="px-6 py-4 text-sm">182.1 MB</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 text-xs text-accent-green font-medium">
+<div class="size-1.5 bg-accent-green rounded-full"></div> Established
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors cursor-pointer">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 text-sm font-mono text-primary">22 (SSH)</td>
+<td class="px-6 py-4 text-sm font-mono">192.168.1.5</td>
+<td class="px-6 py-4 text-xs"><span class="px-2 py-0.5 bg-border-color rounded">TCP</span></td>
+<td class="px-6 py-4 text-sm">1.2 MB</td>
+<td class="px-6 py-4 text-sm">0.4 MB</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 text-xs text-slate-400 font-medium">
+<div class="size-1.5 bg-slate-400 rounded-full"></div> Listening
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors cursor-pointer">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 text-sm font-mono text-primary">53 (DNS)</td>
+<td class="px-6 py-4 text-sm font-mono">8.8.8.8</td>
+<td class="px-6 py-4 text-xs"><span class="px-2 py-0.5 bg-border-color rounded">UDP</span></td>
+<td class="px-6 py-4 text-sm">12 KB</td>
+<td class="px-6 py-4 text-sm">48 KB</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 text-xs text-accent-green font-medium">
+<div class="size-1.5 bg-accent-green rounded-full"></div> Established
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors cursor-pointer">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 text-sm font-mono text-primary">8080 (ALT)</td>
+<td class="px-6 py-4 text-sm font-mono">34.23.112.56</td>
+<td class="px-6 py-4 text-xs"><span class="px-2 py-0.5 bg-border-color rounded">TCP</span></td>
+<td class="px-6 py-4 text-sm">4.8 MB</td>
+<td class="px-6 py-4 text-sm">12.2 MB</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 text-xs text-accent-green font-medium">
+<div class="size-1.5 bg-accent-green rounded-full"></div> Established
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors cursor-pointer">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-3 bg-background-dark/30 border-t border-border-color text-center">
+<button class="text-xs font-bold text-slate-500 hover:text-primary transition-colors">LOAD MORE CONNECTIONS</button>
+</div>
+</div>
+<!-- Footer Stats -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="p-4 bg-surface/20 border border-border-color rounded-lg">
+<p class="text-[10px] font-bold text-slate-500 uppercase">Avg Response Time</p>
+<p class="text-xl font-bold text-primary">24ms</p>
+</div>
+<div class="p-4 bg-surface/20 border border-border-color rounded-lg">
+<p class="text-[10px] font-bold text-slate-500 uppercase">Packet Loss</p>
+<p class="text-xl font-bold text-accent-green">0.02%</p>
+</div>
+<div class="p-4 bg-surface/20 border border-border-color rounded-lg">
+<p class="text-[10px] font-bold text-slate-500 uppercase">Filtered Events</p>
+<p class="text-xl font-bold">1.4M</p>
+</div>
+<div class="p-4 bg-surface/20 border border-border-color rounded-lg">
+<p class="text-[10px] font-bold text-slate-500 uppercase">Threat Level</p>
+<p class="text-xl font-bold text-slate-300">LOW</p>
+</div>
+</div>
+</div>
+</main>
+</body></html>
